@@ -1,5 +1,7 @@
 'use strict';
 
-export default function reducers (state, action) {
-  return state;
+import messageReducer from './messageReducers';
+
+export default function reducers (state = [], action) {
+  return messageReducer(state, action);
 }

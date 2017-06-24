@@ -17,13 +17,14 @@ window.onload = function () {
   for (let server of servers) {
     wsConnections[server] = new WebSocket(server);
     wsConnections[server].onmessage = event => {
-      store.dispatch(event.data);
+      const wsAction = JSON.parse(event.data);
+      store.dispatch(wsAction);
     };
   }
 
   ReactDom.render(
     <Provider store={store}>
-      <Layout/>
+      <Layout ws={wsConnections[servers[0]]}/>
     </Provider>,
     document.getElementById('root')
   );
