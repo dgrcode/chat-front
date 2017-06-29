@@ -2,6 +2,12 @@
 
 import messageReducer from './messageReducers';
 
-export default function reducers (state = [], action) {
-  return messageReducer(state, action);
+const defaultState = {
+  messages: []
+};
+
+export default function reducers (state = defaultState, action) {
+  return {
+    messages: messageReducer(state.messages, action)
+  };
 }

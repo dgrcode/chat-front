@@ -5,7 +5,7 @@ import React from 'react';
 export default class ConfigurationView extends React.Component {
   render () {
     return (
-      <div>
+      <div className="configuration">
         ConfigurationView
       </div>
     );

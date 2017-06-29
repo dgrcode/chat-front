@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class WrittingBoxView extends React.Component {
+export default class WritingBoxView extends React.Component {
   static propTypes = {
     handleSend: PropTypes.func.isRequired
   }
@@ -31,7 +31,6 @@ export default class WrittingBoxView extends React.Component {
   }
 
   componentWillUnmount () {
-    console.log('removes the listener');
     document.onkeydown = undefined;
     document.onkeyup = undefined;
   }
@@ -47,7 +46,7 @@ export default class WrittingBoxView extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="writing-box">
         <textarea value={this.state.message} onChange={this.handleChange}/>
         <button onClick={this.handleClick}>Send</button>
       </div>

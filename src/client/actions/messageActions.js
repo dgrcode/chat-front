@@ -1,8 +1,11 @@
 'use strict';
 
-export function createMessageAction (message) {
+export function createMessageAction (message, user) {
   return ({
     type: 'MESSAGE',
-    payload: message
+    payload: {
+      message,
+      user
+    }
   });
 }

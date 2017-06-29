@@ -5,7 +5,7 @@ import React from 'react';
 export default class MenuView extends React.Component {
   render () {
     return (
-      <div>
+      <div className="menu">
         MenuView
       </div>
     );
