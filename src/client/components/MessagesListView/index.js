@@ -12,9 +12,26 @@ export default class MessagesListView extends React.Component {
     userId: PropTypes.number.isRequired
   }
 
+  componentWillReceiveProps () {
+    const isScrolledToBottom = this.list.scrollHeight - this.list.clientHeight < this.list.scrollTop + 3;
+    console.log(isScrolledToBottom);
+    if (isScrolledToBottom) {
+      this.moveDownAfterUpdate = true;
+    } else {
+      this.moveDownAfterUpdate = false;
+    }
+  }
+
+  componentDidUpdate () {
+    if (this.moveDownAfterUpdate) {
+      this.list.scrollTop = this.list.scrollHeight - this.list.clientHeight;
+    }
+  }
+
   render () {
     return (
-      <div className="messages-list">
+      <div className="messages-list" onScroll={this.handleScroll}
+        ref={list => {this.list = list;}}>
         {
           this.props.messages
             .map((msg, idx) =>
