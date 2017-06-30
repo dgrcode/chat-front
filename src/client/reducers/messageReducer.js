@@ -4,9 +4,10 @@ export default function messageReducer (state = [], action) {
   switch (action.type) {
   case 'MESSAGE':
     const newMessage = {
-      message: action.payload.message,
+      htmlMessage: action.payload.htmlMessage,
+      rawMessage: action.payload.rawMessage,
       ownerId: action.payload.user
-    }
+    };
     return [...state.splice(-100), newMessage];
     break;
 

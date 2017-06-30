@@ -13,9 +13,8 @@ export default class MessageView extends React.Component {
   render () {
     return (
       <div
-        className={`message ${this.props.isFromUser ? 'from-user' : 'from-another'}`}>
-        {this.props.children}
-      </div>
+        className={`message ${this.props.isFromUser ? 'from-user' : 'from-another'}`}
+        dangerouslySetInnerHTML={{ __html: this.props.children }}/>
     );
   }
 }

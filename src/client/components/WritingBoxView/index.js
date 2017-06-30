@@ -24,6 +24,7 @@ export default class WritingBoxView extends React.Component {
       if ((this.ctrl && e.keyCode === 13) ||
           (this.props.sendWithEnter && e.keyCode === 13)) {
         this.handleClick();
+        e.preventDefault();
       }
     };
     document.onkeyup = (e) => {

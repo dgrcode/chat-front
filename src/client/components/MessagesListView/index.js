@@ -14,7 +14,6 @@ export default class MessagesListView extends React.Component {
 
   componentWillReceiveProps () {
     const isScrolledToBottom = this.list.scrollHeight - this.list.clientHeight < this.list.scrollTop + 3;
-    console.log(isScrolledToBottom);
     if (isScrolledToBottom) {
       this.moveDownAfterUpdate = true;
     } else {
@@ -38,7 +37,7 @@ export default class MessagesListView extends React.Component {
             <MessageView
               key={idx}
               isFromUser={this.props.userId === msg.ownerId}>
-                {msg.message}
+                {msg.htmlMessage}
             </MessageView>)
         }
       </div>
