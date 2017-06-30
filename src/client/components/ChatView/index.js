@@ -4,7 +4,7 @@ import './style.sass';
 import React from 'react';
 import PropTypes from 'prop-types';
 import MessagesListViewContainer from '../../containers/MessagesListViewContainer';
-import WritingBoxView from '../WritingBoxView';
+import WritingBoxViewContainer from '../../containers/WritingBoxViewContainer';
 import { createMessageAction } from '../../actions/messageActions';
 
 export default class ChatView extends React.Component {
@@ -24,7 +24,7 @@ export default class ChatView extends React.Component {
     return (
       <div className="chat">
         <MessagesListViewContainer userId={this.props.userId}/>
-        <WritingBoxView handleSend={this.handleSend}/>
+        <WritingBoxViewContainer handleSend={this.handleSend}/>
       </div>
     );
   }

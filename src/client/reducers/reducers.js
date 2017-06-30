@@ -1,13 +1,16 @@
 'use strict';
 
-import messageReducer from './messageReducers';
+import messageReducer from './messageReducer';
+import configurationReducer from './configurationReducer';
 
 const defaultState = {
-  messages: []
+  messages: [],
+  configuration: {}
 };
 
 export default function reducers (state = defaultState, action) {
   return {
-    messages: messageReducer(state.messages, action)
+    messages: messageReducer(state.messages, action),
+    configuration: configurationReducer(state.configuration, action)
   };
 }

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import MenuView from '../MenuView';
-import ConfigurationView from '../ConfigurationView';
+import ConfigurationViewContainer from '../../containers/ConfigurationViewContainer';
 import ChatView from '../ChatView';
 
 /* DEV ONLY */
@@ -24,7 +24,7 @@ export default class Layout extends React.Component {
         <Navbar/>
         <div className="content">
           <MenuView/>
-          <ConfigurationView/>
+          <ConfigurationViewContainer/>
           <ChatView ws={this.props.ws} userId={userId}/>
         </div>
         <Footer/>

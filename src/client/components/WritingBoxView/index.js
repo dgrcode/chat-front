@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 
 export default class WritingBoxView extends React.Component {
   static propTypes = {
-    handleSend: PropTypes.func.isRequired
+    handleSend: PropTypes.func.isRequired,
+    sendWithEnter: PropTypes.bool.isRequired
   }
 
   constructor (props) {
@@ -20,7 +21,8 @@ export default class WritingBoxView extends React.Component {
       if (e.keyCode === 17) {
         this.ctrl = true;
       }
-      if (this.ctrl && e.keyCode === 13) {
+      if ((this.ctrl && e.keyCode === 13) ||
+          (this.props.sendWithEnter && e.keyCode === 13)) {
         this.handleClick();
       }
     };
