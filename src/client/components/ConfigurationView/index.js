@@ -10,7 +10,6 @@ export default class ConfigurationView extends React.Component {
   }
 
   onChangeSendStyle = evt => {
-    console.log('zup?');
     this.props.onChangeSendStyle(evt.target.checked);
   }
 
@@ -18,7 +17,8 @@ export default class ConfigurationView extends React.Component {
     return (
       <div className="configuration">
         <label>
-          <input type="checkbox" onChange={this.onChangeSendStyle}/>
+          <input type="checkbox" onChange={this.onChangeSendStyle}
+            checked={this.props.configuration.sendWithEnter}/>
           Send messages with "enter"
         </label>
       </div>
