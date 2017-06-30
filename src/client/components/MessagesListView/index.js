@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MessageView from './MessageView';
+import MessageView from '../MessageView';
 
 export default class MessagesListView extends React.Component {
   static propTypes = {

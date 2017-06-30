@@ -39,5 +39,10 @@
     "react-redux": "^5.0.5",
     "redux": "^3.7.0",
     "ws": "^3.0.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      ".*\\.(css|sass)$": "<rootDir>/test/dummyStyle.js"
+    }
   }
 }

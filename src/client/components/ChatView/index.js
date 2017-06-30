@@ -2,9 +2,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import MessagesListViewContainer from '../containers/MessagesListViewContainer';
-import WritingBoxView from './WritingBoxView';
-import { createMessageAction } from '../actions/messageActions';
+import MessagesListViewContainer from '../../containers/MessagesListViewContainer';
+import WritingBoxView from '../WritingBoxView';
+import { createMessageAction } from '../../actions/messageActions';
 
 export default class ChatView extends React.Component {
   static propTypes = {
@@ -24,7 +24,6 @@ export default class ChatView extends React.Component {
       <div className="chat">
         <MessagesListViewContainer userId={this.props.userId}/>
         <WritingBoxView handleSend={this.handleSend}/>
-        <div className={'tested'}>{(this.props.ws instanceof WebSocket).toString()}</div>
       </div>
     );
   }

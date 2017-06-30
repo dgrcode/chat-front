@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import MessageView from '../../src/client/components/MessageView';
+import MessageView from './index';
 
 const dummyMsg = { message: 'whatever', ownerId: 0 };
 const component = mount(

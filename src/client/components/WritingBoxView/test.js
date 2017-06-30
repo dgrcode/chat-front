@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import WritingBoxView from '../../src/client/components/WritingBoxView';
+import WritingBoxView from './index';
 
 const handleSend = jest.fn();
 const component = mount(

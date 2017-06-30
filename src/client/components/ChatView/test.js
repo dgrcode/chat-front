@@ -1,15 +1,15 @@
 'use strict';
 /* global describe, it, expect */
-import '../dummyWebSocketInjector';
+import '../../../../test/dummyWebSocketInjector';
 
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducers from '../../src/client/reducers/reducers';
-import { createMessageAction } from '../../src/client/actions/messageActions';
+import reducers from '../../reducers/reducers';
+import { createMessageAction } from '../../actions/messageActions';
 import { mount } from 'enzyme';
-import ChatView from '../../src/client/components/ChatView';
-import WebSocket from '../dummyWebSocket';
+import ChatView from './index';
+import WebSocket from '../../../../test/dummyWebSocket';
 
 const store = createStore(reducers);
 const dummyUserId = 0;

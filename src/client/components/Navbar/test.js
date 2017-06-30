@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import Navbar from '../../src/client/components/Navbar';
+import Navbar from './index';
 
 const component = shallow(<Navbar/>);
 describe('The Navbar component', () => {

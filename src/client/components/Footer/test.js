@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import Footer from '../../src/client/components/Footer';
+import Footer from './index';
 
 const component = shallow(<Footer/>);
 describe('The Footer component', () => {

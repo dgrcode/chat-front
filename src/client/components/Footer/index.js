@@ -1,4 +1,5 @@
 'use strict';
+import './style.sass';
 
 import React from 'react';
 
