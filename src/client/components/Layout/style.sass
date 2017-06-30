@@ -1,3 +1,11 @@
+#root
+  height: 100%
+
+.layout
+  display: flex
+  flex-direction: column
+  height: 100%
+
 .navbar
   position: absolute
   height: 35px
@@ -6,7 +14,6 @@
   left: 0
 
 .footer
-  position: absolute
   height: 25px
   bottom: 0
   left: 0
@@ -15,15 +22,16 @@
 .content
   padding-top: 35px
   display: flex
+  height: 100%
 
   .menu
     order: 1
-    width: 20%
+    width: 0%
 
   .chat
     order: 2
-    width: 60%
+    width: 50%
 
   .configuration
     order: 3
-    width: 20%
+    width: 50%
