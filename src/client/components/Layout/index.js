@@ -9,6 +9,9 @@ import MenuView from '../MenuView';
 import ConfigurationView from '../ConfigurationView';
 import ChatView from '../ChatView';
 
+/* DEV ONLY */
+const userId = 0;
+/* DEV ONLY */
 
 export default class Layout extends React.Component {
   static propTypes = {
@@ -22,7 +25,7 @@ export default class Layout extends React.Component {
         <div className="content">
           <MenuView/>
           <ConfigurationView/>
-          <ChatView ws={this.props.ws}/>
+          <ChatView ws={this.props.ws} userId={userId}/>
         </div>
         <Footer/>
       </div>
