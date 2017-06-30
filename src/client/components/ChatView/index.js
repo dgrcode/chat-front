@@ -14,9 +14,14 @@ export default class ChatView extends React.Component {
     userId: PropTypes.number.isRequired
   }
 
+  componentDidMount = () => {
+    this.fakeUser = 0;
+  }
+
   handleSend = (message) => {
     const ws = this.props.ws;
-    const messageAction = createMessageAction(message);
+    const user = ++this.fakeUser % 3;
+    const messageAction = createMessageAction(message, user);
     ws.send(JSON.stringify(messageAction));
   }
 

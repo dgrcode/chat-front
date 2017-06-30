@@ -1,7 +1,7 @@
 'use strict';
 
 const defaultConfiguration = {
-  sendWithEnter: false
+  sendWithEnter: true
 };
 
 export default function configurationReducer (state = defaultConfiguration, action) {
