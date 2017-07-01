@@ -1,11 +1,22 @@
 $fromAnotherColor: rgba(204, 238, 255, 1)
 $fromUserColor: rgba(204, 255, 245, 1)
 .message
-  width: 80%
-  margin: 20px 0
+  width: auto
+  max-width: 80%
+  margin: 10px 0
   padding: 10px
   border-radius: 2px
   position: relative
+
+  .message-owner
+    margin: -5px 0 5px
+    font-size: 0.7em
+    font-weight: bold
+    color: rgba(0, 0, 0, 0.3)
+
+  .message-content
+    & p
+      margin: 0
 
 .from-another
   background-color: $fromAnotherColor
@@ -28,6 +39,7 @@ $fromUserColor: rgba(204, 255, 245, 1)
     background-color: $fromUserColor
     margin-left: auto
     margin-right: 20px
+    text-align: right
 
     &:after
       content: ""

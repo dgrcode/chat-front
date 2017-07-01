@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --inline --hot",
+    "devoffline": "webpack-dev-server --inline --hot --offline",
     "test": "jest",
     "watch": "jest --watchAll"
   },

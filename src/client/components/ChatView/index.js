@@ -11,7 +11,8 @@ export default class ChatView extends React.Component {
   static propTypes = {
     ws: PropTypes.instanceOf(WebSocket).isRequired,
     // TODO define if ownerId will be a string or a number
-    userId: PropTypes.number.isRequired
+    userId: PropTypes.number.isRequired,
+    userIdNames: PropTypes.object.isRequired
   }
 
   componentDidMount = () => {
@@ -28,7 +29,8 @@ export default class ChatView extends React.Component {
   render () {
     return (
       <div className="chat">
-        <MessagesListViewContainer userId={this.props.userId}/>
+        <MessagesListViewContainer userId={this.props.userId}
+          userIdNames={this.props.userIdNames}/>
         <WritingBoxViewContainer handleSend={this.handleSend}/>
       </div>
     );

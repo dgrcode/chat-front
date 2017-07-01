@@ -12,6 +12,14 @@ import Layout from './components/Layout';
 const servers = ['ws://localhost:4000'];
 const wsConnections = {};
 
+/* ONLY DEV */
+const userIdNames = {
+  0: 'Dani',
+  1: 'Laura',
+  2: 'Peter'
+};
+/* ONLY DEV */
+
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 window.onload = function () {
@@ -25,7 +33,7 @@ window.onload = function () {
 
   ReactDom.render(
     <Provider store={store}>
-      <Layout ws={wsConnections[servers[0]]}/>
+      <Layout ws={wsConnections[servers[0]]} userIdNames={userIdNames}/>
     </Provider>,
     document.getElementById('root')
   );

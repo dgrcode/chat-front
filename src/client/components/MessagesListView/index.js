@@ -1,4 +1,5 @@
 'use strict';
+import './style.sass';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -9,7 +10,8 @@ export default class MessagesListView extends React.Component {
   static propTypes = {
     messages: PropTypes.array.isRequired,
     // TODO define if ownerId will be a string or a number
-    userId: PropTypes.number.isRequired
+    userId: PropTypes.number.isRequired,
+    userIdNames: PropTypes.object.isRequired
   }
 
   componentWillReceiveProps () {
@@ -36,6 +38,7 @@ export default class MessagesListView extends React.Component {
             .map((msg, idx) =>
             <MessageView
               key={idx}
+              messageOwner={this.props.userIdNames[msg.ownerId]}
               isFromUser={this.props.userId === msg.ownerId}>
                 {msg.htmlMessage}
             </MessageView>)

@@ -7,14 +7,18 @@ import PropTypes from 'prop-types';
 export default class MessageView extends React.Component {
   static propTypes = {
     isFromUser: PropTypes.bool.isRequired,
+    messageOwner: PropTypes.string.isRequired,
     children: PropTypes.string.isRequired
   }
 
   render () {
     return (
       <div
-        className={`message ${this.props.isFromUser ? 'from-user' : 'from-another'}`}
-        dangerouslySetInnerHTML={{ __html: this.props.children }}/>
+        className={`message ${this.props.isFromUser ? 'from-user' : 'from-another'}`}>
+        {this.props.isFromUser ? null : <div className="message-owner">{this.props.messageOwner}</div>}
+        <div className="message-content"
+          dangerouslySetInnerHTML={{ __html: this.props.children }}/>
+      </div>
     );
   }
 }

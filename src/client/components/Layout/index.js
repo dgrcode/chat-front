@@ -15,7 +15,8 @@ const userId = 0;
 
 export default class Layout extends React.Component {
   static propTypes = {
-    ws: PropTypes.instanceOf(WebSocket).isRequired
+    ws: PropTypes.instanceOf(WebSocket).isRequired,
+    userIdNames: PropTypes.object.isRequired
   }
 
   render () {
@@ -25,7 +26,7 @@ export default class Layout extends React.Component {
         <div className="content">
           <MenuView/>
           <ConfigurationViewContainer/>
-          <ChatView ws={this.props.ws} userId={userId}/>
+          <ChatView ws={this.props.ws} userId={userId} userIdNames={this.props.userIdNames}/>
         </div>
         <Footer/>
       </div>
