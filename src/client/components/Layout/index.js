@@ -7,7 +7,7 @@ import Navbar from '../Navbar';
 import Footer from '../Footer';
 import MenuView from '../MenuView';
 import ConfigurationViewContainer from '../../containers/ConfigurationViewContainer';
-import ChatView from '../ChatView';
+import ChatViewContainer from '../../containers/ChatViewContainer';
 
 /* DEV ONLY */
 const userId = 0;
@@ -26,7 +26,7 @@ export default class Layout extends React.Component {
         <div className="content">
           <MenuView/>
           <ConfigurationViewContainer/>
-          <ChatView ws={this.props.ws} userId={userId} userIdNames={this.props.userIdNames}/>
+          <ChatViewContainer ws={this.props.ws} userId={userId} userIdNames={this.props.userIdNames}/>
         </div>
         <Footer/>
       </div>

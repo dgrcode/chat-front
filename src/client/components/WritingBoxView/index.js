@@ -7,17 +7,24 @@ import PropTypes from 'prop-types';
 export default class WritingBoxView extends React.Component {
   static propTypes = {
     handleSend: PropTypes.func.isRequired,
-    sendWithEnter: PropTypes.bool.isRequired
+    sendWithEnter: PropTypes.bool.isRequired,
+    messageHistory: PropTypes.array.isRequired
   }
 
   constructor (props) {
     super(props);
     this.state = {
-      message: ''
+      message: '',
+      messageHistoryIdx: null
     };
   }
+
   componentDidMount = () => {
     document.onkeydown = (e) => {
+      // 13 ENTER
+      // 17 CTRL
+      // 38 UP
+      // 40 DOWN
       if (e.keyCode === 17) {
         this.ctrl = true;
       }
@@ -25,6 +32,36 @@ export default class WritingBoxView extends React.Component {
           (this.props.sendWithEnter && e.keyCode === 13)) {
         this.handleClick();
         e.preventDefault();
+      }
+      const msg = this.state.message;
+      const msgHistory = this.props.messageHistory;
+      let msgHistoryIdx = this.state.messageHistoryIdx;
+      if (e.keyCode === 38 && msgHistoryIdx < msgHistory.length - 1 &&
+          (msg === '' || msg === msgHistory[msgHistoryIdx])) {
+        if (msgHistoryIdx === null) {
+          msgHistoryIdx = -1;
+        }
+        msgHistoryIdx++;
+        this.setState({
+          message: msgHistory[msgHistoryIdx],
+          messageHistoryIdx: msgHistoryIdx
+        });
+      }
+      if (e.keyCode === 40 && msgHistoryIdx !== null &&
+          (msg === '' || msg === msgHistory[msgHistoryIdx])) {
+        if (msgHistoryIdx === 0) {
+          msgHistoryIdx = null;
+          this.setState({
+            message: '',
+            messageHistoryIdx: msgHistoryIdx
+          });
+        } else {
+          msgHistoryIdx--;
+          this.setState({
+            message: msgHistory[msgHistoryIdx],
+            messageHistoryIdx: msgHistoryIdx
+          });
+        }
       }
     };
     document.onkeyup = (e) => {
