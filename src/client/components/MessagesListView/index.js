@@ -38,8 +38,8 @@ export default class MessagesListView extends React.Component {
             .map((msg, idx) =>
             <MessageView
               key={idx}
-              messageOwner={this.props.userIdNames[msg.ownerId]}
-              isFromUser={this.props.userId === msg.ownerId}>
+              userId={this.props.userIdNames[msg.userId]}
+              isFromUser={this.props.userId === msg.userId}>
                 {msg.htmlMessage}
             </MessageView>)
         }
