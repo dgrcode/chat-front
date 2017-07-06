@@ -6,7 +6,8 @@ import { changeSendStyle } from '../actions/configurationActions';
 
 function mapStateToProps (state) {
   return ({
-    configuration: state.configuration
+    configuration: state.configuration,
+    isVisible: state.ui.visibleConfig
   });
 }
 

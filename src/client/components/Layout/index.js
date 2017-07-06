@@ -3,7 +3,7 @@ import './style.sass';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from '../Navbar';
+import NavbarContainer from '../../containers/NavbarContainer';
 import Footer from '../Footer';
 import MenuView from '../MenuView';
 import ConfigurationViewContainer from '../../containers/ConfigurationViewContainer';
@@ -16,17 +16,23 @@ const userId = 0;
 export default class Layout extends React.Component {
   static propTypes = {
     ws: PropTypes.instanceOf(WebSocket).isRequired,
-    userIdNames: PropTypes.object.isRequired
+    userIdNames: PropTypes.object.isRequired,
+    ui: PropTypes.object.isRequired
   }
 
   render () {
+    const visibleSec = this.props.ui.visibleConfig;
     return (
       <div className="layout">
-        <Navbar/>
+        <NavbarContainer/>
         <div className="content">
-          <MenuView/>
-          <ConfigurationViewContainer/>
-          <ChatViewContainer ws={this.props.ws} userId={userId} userIdNames={this.props.userIdNames}/>
+          <div className="main-content">
+            <MenuView/>
+            <ChatViewContainer ws={this.props.ws} userId={userId} userIdNames={this.props.userIdNames}/>
+          </div>
+          <div className={`secondary-content ${visibleSec ? 'visible' : 'hidden'}`}>
+            <ConfigurationViewContainer/>
+          </div>
         </div>
         <Footer/>
       </div>

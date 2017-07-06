@@ -1,5 +1,5 @@
-$fromAnotherColor: rgba(204, 238, 255, 1)
-$fromUserColor: rgba(204, 255, 245, 1)
+$fromAnotherColor: rgba(194, 228, 255, 1)
+$fromUserColor: rgba(194, 255, 235, 1)
 .message
   width: auto
   max-width: 80%
@@ -8,11 +8,16 @@ $fromUserColor: rgba(204, 255, 245, 1)
   border-radius: 2px
   position: relative
 
-  .message-owner
-    margin: -5px 0 5px
+  .message-info
     font-size: 0.7em
     font-weight: bold
     color: rgba(0, 0, 0, 0.3)
+
+    .message-owner
+      margin: -5px 0 5px
+
+    .message-time
+      font-style: italic
 
   .message-content
     & p

@@ -5,6 +5,7 @@
   display: flex
   flex-direction: column
   height: 100%
+  overflow: hidden
 
 .navbar
   position: absolute
@@ -20,18 +21,34 @@
   right: 0
 
 .content
-  padding-top: 35px
   display: flex
+  flex-direction: row
+  width: 100%
   height: 100%
 
-  .menu
-    order: 1
-    width: 0%
+  .main-content
+    display: inline-flex
+    flex-direction: row
+    height: 100%
+    width: 100%
 
-  .chat
-    order: 2
-    width: 50%
+    .menu
+      order: 1
+      flex: 0 1 30%
 
-  .configuration
-    order: 3
-    width: 50%
+    .chat
+      order: 2
+      flex: 0 1 70%
+      //min-width: 450px
+
+  .secondary-content
+    transition: width .3s
+    &.visible
+      width: 200px
+    &.hidden
+      width: 0
+
+    .configuration
+      display: inline-flex
+      height: 100%
+      width: 200px

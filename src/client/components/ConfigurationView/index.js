@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 export default class ConfigurationView extends React.Component {
   static propTypes = {
     configuration: PropTypes.object.isRequired,
+    isVisible: PropTypes.bool.isRequired,
     onChangeSendStyle: PropTypes.func.isRequired
   }
 
@@ -15,7 +16,7 @@ export default class ConfigurationView extends React.Component {
 
   render () {
     return (
-      <div className="configuration">
+      <div className="configuration" id="configuration">
         <label>
           <input type="checkbox" onChange={this.onChangeSendStyle}
             checked={this.props.configuration.sendWithEnter}/>

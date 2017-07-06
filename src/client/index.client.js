@@ -4,7 +4,7 @@ import './style.sass';
 import React from 'react';
 import ReactDom from 'react-dom';
 import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import reducers from './reducers/reducers';
 import Layout from './components/Layout';
 
@@ -22,6 +22,11 @@ const userIdNames = {
 
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
+const LayoutMapStateToProps = state => ({
+  ui: state.ui
+});
+const LauyoutContainer = connect(LayoutMapStateToProps)(Layout);
+
 window.onload = function () {
   for (let server of servers) {
     wsConnections[server] = new WebSocket(server);
@@ -33,7 +38,7 @@ window.onload = function () {
 
   ReactDom.render(
     <Provider store={store}>
-      <Layout ws={wsConnections[servers[0]]} userIdNames={userIdNames}/>
+      <LauyoutContainer ws={wsConnections[servers[0]]} userIdNames={userIdNames}/>
     </Provider>,
     document.getElementById('root')
   );
