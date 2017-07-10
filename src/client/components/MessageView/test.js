@@ -5,9 +5,26 @@ import React from 'react';
 import { mount } from 'enzyme';
 import MessageView from './index';
 
-const dummyMsg = { message: 'whatever', ownerId: 0 };
+/*
+  isFromUser: PropTypes.bool.isRequired,
+  userId: PropTypes.string.isRequired,
+  messageTime: PropTypes.instanceOf(Date).isRequired,
+  children: PropTypes.string.isRequired
+*/
+
+const dummyMsg = {
+  rawMessage: 'whatever',
+  htmlMessage: '<p>whatever,</p>',
+  userId: 0,
+  timestamp: new Date()
+};
+const userName = 'Peter';
 const component = mount(
-  <MessageView isFromUser={false}>{dummyMsg.message}</MessageView>
+  <MessageView
+    isFromUser={false}
+    userName={userName}
+    messageTime={dummyMsg.timestamp}
+    >{dummyMsg.htmlMessage}</MessageView>
 );
 describe('The MessageView', () => {
   it('should render a message', () => {

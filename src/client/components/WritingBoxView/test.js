@@ -6,8 +6,9 @@ import { mount } from 'enzyme';
 import WritingBoxView from './index';
 
 const handleSend = jest.fn();
+const cfgSendMessageWithEnter = true;
 const component = mount(
-  <WritingBoxView handleSend={handleSend}/>
+  <WritingBoxView handleSend={handleSend} sendWithEnter={cfgSendMessageWithEnter} messageHistory={[]}/>
 );
 describe('The WrittingBoxView', () => {
   it('should render the Writting Box', () => {

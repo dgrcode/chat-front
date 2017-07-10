@@ -38,7 +38,7 @@ export default class MessagesListView extends React.Component {
             .map((msg, idx) =>
             <MessageView
               key={idx}
-              userId={this.props.userIdNames[msg.userId]}
+              userName={this.props.userIdNames[msg.userId]}
               messageTime={new Date(msg.timestamp)}
               isFromUser={this.props.userId === msg.userId}>
                 {msg.htmlMessage}
