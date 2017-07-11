@@ -16,7 +16,7 @@ export default class Navbar extends React.Component {
   render () {
     return (
       <div className="navbar">
-        <div className="server-title">TITLE</div>
+        <div className="server-name">TITLE</div>
         <button id="toggle-config" onClick={this.toggleConfig}>CFG</button>
       </div>
     );

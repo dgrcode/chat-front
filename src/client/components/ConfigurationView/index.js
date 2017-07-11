@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 export default class ConfigurationView extends React.Component {
   static propTypes = {
     configuration: PropTypes.object.isRequired,
+    // TODO do I use `isVisible`?
     isVisible: PropTypes.bool.isRequired,
     onChangeSendStyle: PropTypes.func.isRequired
   }
