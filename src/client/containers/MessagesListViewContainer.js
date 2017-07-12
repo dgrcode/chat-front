@@ -5,7 +5,8 @@ import MessagesListView from '../components/MessagesListView';
 
 function mapStateToProps (state) {
   return ({
-    messages: state.messages
+    activeWs: state.ui.activeWsAddress,
+    messages: state.messages[state.ui.activeWsAddress] || []
   });
 }
 

@@ -19,23 +19,15 @@ export default class App extends React.Component {
     wsConnections: PropTypes.object.isRequired,
     userIdNames: PropTypes.object.isRequired,
     ui: PropTypes.object.isRequired,
+    changeActiveWsServer: PropTypes.func.isRequired,
     connectNew: PropTypes.func.isRequired
   }
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      // TODO this is currently hardcoded but shuold be set with some logic
-      activeServerAddress: this.props.wsAddresses[0]
-    };
-  }
-
   changeActiveWsServer = wsAddress => {
-    console.log('active server changed to:', wsAddress);
-    this.setState({ activeServerAddress: wsAddress });
+    this.props.changeActiveWsServer(wsAddress);
   }
 
-  handlConnectNew = (wsAddress) => {
+  handleConnectNew = (wsAddress) => {
     this.props.connectNew(wsAddress);
     this.forceUpdate();
   }
@@ -49,7 +41,7 @@ export default class App extends React.Component {
 
   render () {
     const visibleConfig = this.props.ui.visibleConfig;
-    const ws = this.props.wsConnections[this.state.activeServerAddress];
+    const ws = this.props.wsConnections[this.props.ui.activeWsAddress];
     return (
       <div className="layout">
         <NavbarContainer/>
@@ -61,7 +53,7 @@ export default class App extends React.Component {
             <ChatViewContainer ws={ws} userId={userId} userIdNames={this.props.userIdNames}/>
           </div>
           <div className={`secondary-content ${visibleConfig ? 'visible' : 'hidden'}`}>
-            <ConfigurationViewContainer connectNew={this.handlConnectNew}/>
+            <ConfigurationViewContainer connectNew={this.handleConnectNew}/>
           </div>
         </div>
         <Footer/>

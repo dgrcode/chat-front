@@ -7,6 +7,7 @@ import { createStore } from 'redux';
 import { Provider, connect } from 'react-redux';
 import reducers from './reducers/reducers';
 import App from './components/App';
+import { setActiveWs } from './actions/uiActions';
 
 
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -39,12 +40,20 @@ const userIdNames = {
 const appMapStateToProps = state => ({
   ui: state.ui
 });
-const AppContainer = connect(appMapStateToProps)(App);
+const appMapDispatchToProps = dispatch => ({
+  changeActiveWsServer: wsAddress => {
+    dispatch(setActiveWs(wsAddress));
+  }
+});
+const AppContainer = connect(appMapStateToProps, appMapDispatchToProps)(App);
 
 window.onload = function () {
   for (let address of wsAddresses) {
     setupConnection(address);
   }
+
+  // TODO by default starts with the first ws. Change that?
+  store.dispatch(setActiveWs(wsAddresses[0]));
 
   ReactDom.render(
     <Provider store={store}>

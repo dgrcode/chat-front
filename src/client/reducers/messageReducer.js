@@ -1,25 +1,38 @@
 'use strict';
 
-export default function messageReducer (state = [], action) {
+let modifiedState;
+let wsAddress;
+let currentMessages;
+export default function messageReducer (state = {}, action) {
   switch (action.type) {
   case 'MESSAGE':
+    wsAddress = action.payload.wsAddress;
     const newMessage = {
       htmlMessage: action.payload.htmlMessage,
       rawMessage: action.payload.rawMessage,
       userId: action.payload.userId,
       timestamp: action.payload.timestamp
     };
-    return [...state.splice(-100), newMessage];
+    modifiedState = {};
+    currentMessages = state[wsAddress] || [];
+    modifiedState[wsAddress] = [...currentMessages.splice(-100), newMessage];
+    return Object.assign({}, state, modifiedState);
     break;
 
   case 'MESSAGE_GROUP':
-    const newMessageGroup = action.payload.map(v => ({
+    console.log('receives an MESSAGE_GROUP action', action);
+    wsAddress = action.payload.wsAddress;
+    const newMessageGroup = action.payload.messages.map(v => ({
       htmlMessage: v.htmlMessage,
       rawMessage: v.rawMessage,
       userId: v.userId,
       timestamp: v.timestamp
     }));
-    return [...state.splice(-100), ...newMessageGroup];
+    modifiedState = {};
+    currentMessages = state[wsAddress] || [];
+    modifiedState[wsAddress] = [...currentMessages.splice(-100), ...newMessageGroup];
+    return Object.assign({}, state, modifiedState);
+
 
   default:
     return state;

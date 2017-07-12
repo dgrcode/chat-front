@@ -1,7 +1,8 @@
 'use strict';
 
 const defaultUi = {
-  visibleConfig: false
+  visibleConfig: false,
+  activeWsAddress: null
 };
 
 export default function configurationReducer (state = defaultUi, action) {
@@ -11,6 +12,11 @@ export default function configurationReducer (state = defaultUi, action) {
       visibleConfig: !state.visibleConfig
     });
     break;
+
+  case 'SET_ACTIVE_WS':
+    return Object.assign({}, state, {
+      activeWsAddress: action.payload.wsAddress
+    });
 
   default:
     return state;
