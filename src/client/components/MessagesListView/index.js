@@ -29,21 +29,43 @@ export default class MessagesListView extends React.Component {
     }
   }
 
+  renderMessages () {
+    let lastFullDate = 0;
+    const content = [];
+    let separatorIdx = 0;
+    for (let idx = 0; idx < this.props.messages.length; idx++) {
+      const msg = this.props.messages[idx];
+      const msgFullDate = (new Date(msg.timestamp)).toLocaleDateString();
+      if (msgFullDate !== lastFullDate) {
+        lastFullDate = msgFullDate;
+        content.push(
+          <div className="date-separator" key={`separator${separatorIdx++}`}>
+            <hr/>
+            {msgFullDate}
+            <hr/>
+          </div>
+        );
+      }
+
+      content.push(
+        <MessageView
+          key={idx}
+          userName={this.props.userIdNames[msg.userId]}
+          messageTime={new Date(msg.timestamp)}
+          isFromUser={this.props.userId === msg.userId}>
+            {msg.htmlMessage}
+        </MessageView>
+      );
+    }
+
+    return content;
+  }
+
   render () {
     return (
       <div className="messages-list" onScroll={this.handleScroll}
         ref={list => {this.list = list;}}>
-        {
-          this.props.messages
-            .map((msg, idx) =>
-            <MessageView
-              key={idx}
-              userName={this.props.userIdNames[msg.userId]}
-              messageTime={new Date(msg.timestamp)}
-              isFromUser={this.props.userId === msg.userId}>
-                {msg.htmlMessage}
-            </MessageView>)
-        }
+        {this.renderMessages()}
       </div>
     );
   }
