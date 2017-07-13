@@ -9,16 +9,18 @@ import reducers from './reducers/reducers';
 import App from './components/App';
 import { setActiveWs } from './actions/uiActions';
 
-
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-const wsAddresses = ['ws://localhost:4000'];
-const wsConnections = {}; // address -> server
+const wsAddresses = ['ws://10.0.12.177:4000'];
+const wsConnections = {}; // address -> {name, server}
+window.wsConnections = wsConnections;
 
 function setupConnection (wsAddress) {
-  wsConnections[wsAddress] = new WebSocket(wsAddress);
-  wsConnections[wsAddress].onmessage = event => {
+  wsConnections[wsAddress] = {};
+  wsConnections[wsAddress].ws = new WebSocket(wsAddress);
+  wsConnections[wsAddress].ws.onmessage = event => {
     const wsAction = JSON.parse(event.data);
+    wsAction.payload.wsAddress = wsAddress;
     store.dispatch(wsAction);
   };
 }
@@ -38,7 +40,8 @@ const userIdNames = {
 /* ONLY DEV */
 
 const appMapStateToProps = state => ({
-  ui: state.ui
+  ui: state.ui,
+  connection: state.connection
 });
 const appMapDispatchToProps = dispatch => ({
   changeActiveWsServer: wsAddress => {

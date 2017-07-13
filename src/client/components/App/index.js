@@ -19,6 +19,7 @@ export default class App extends React.Component {
     wsConnections: PropTypes.object.isRequired,
     userIdNames: PropTypes.object.isRequired,
     ui: PropTypes.object.isRequired,
+    connection: PropTypes.object.isRequired,
     changeActiveWsServer: PropTypes.func.isRequired,
     connectNew: PropTypes.func.isRequired
   }
@@ -31,24 +32,22 @@ export default class App extends React.Component {
     this.props.connectNew(wsAddress);
     this.forceUpdate();
   }
-  // shouldComponentUpdate (nextProps, nextState) {
-  //   if (nextState.activeServerAddress === this.state.activeServerAddress) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // }
 
   render () {
     const visibleConfig = this.props.ui.visibleConfig;
-    const ws = this.props.wsConnections[this.props.ui.activeWsAddress];
+    const ws = this.props.wsConnections[this.props.ui.activeWsAddress].ws;
+    const wsNames = this.props.wsAddresses
+      .map(wsAddress => ({
+        address: wsAddress,
+        name: this.props.connection[wsAddress] ? this.props.connection[wsAddress].name : '...'
+      }));
     return (
       <div className="layout">
         <NavbarContainer/>
         <div className="content">
           <div className="main-content">
             <MenuView
-              wsNames={this.props.wsAddresses}
+              wsNames={wsNames}
               changeActiveWsServer={this.changeActiveWsServer}/>
             <ChatViewContainer ws={ws} userId={userId} userIdNames={this.props.userIdNames}/>
           </div>

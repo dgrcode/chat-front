@@ -20,7 +20,6 @@ export default function messageReducer (state = {}, action) {
     break;
 
   case 'MESSAGE_GROUP':
-    console.log('receives an MESSAGE_GROUP action', action);
     wsAddress = action.payload.wsAddress;
     const newMessageGroup = action.payload.messages.map(v => ({
       htmlMessage: v.htmlMessage,
