@@ -19,7 +19,7 @@ export default function messageReducer (state = {}, action) {
     return Object.assign({}, state, modifiedState);
     break;
 
-  case 'MESSAGE_GROUP':
+  case 'HANDSHAKE':
     wsAddress = action.payload.wsAddress;
     const newMessageGroup = action.payload.messages.map(v => ({
       htmlMessage: v.htmlMessage,

@@ -11,21 +11,17 @@ export default class ChatView extends React.Component {
   static propTypes = {
     ws: PropTypes.instanceOf(WebSocket).isRequired,
     // TODO define if ownerId will be a string or a number
-    userId: PropTypes.number.isRequired,
-    userIdNames: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
     sendWithEnter: PropTypes.bool.isRequired,
     messageHistory: PropTypes.array.isRequired,
     dispatchMessageToHistory: PropTypes.func.isRequired
   }
 
-  componentDidMount = () => {
-    this.fakeUser = 0;
-  }
-
   handleSend = (message) => {
+    if (message === '') return;
     const ws = this.props.ws;
-    const user = ++this.fakeUser % 3;
-    const messageAction = createMessageAction(message, user);
+    const userId = this.props.user.id;
+    const messageAction = createMessageAction(message, userId);
     this.props.dispatchMessageToHistory(message);
     ws.send(JSON.stringify(messageAction));
   }
@@ -33,8 +29,7 @@ export default class ChatView extends React.Component {
   render () {
     return (
       <div className="chat">
-        <MessagesListViewContainer userId={this.props.userId}
-          userIdNames={this.props.userIdNames}/>
+        <MessagesListViewContainer/>
         <WritingBoxView
           handleSend={this.handleSend}
           messageHistory={this.props.messageHistory}

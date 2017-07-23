@@ -8,16 +8,13 @@ import Footer from '../Footer';
 import MenuView from '../MenuView';
 import ConfigurationViewContainer from '../../containers/ConfigurationViewContainer';
 import ChatViewContainer from '../../containers/ChatViewContainer';
-
-/* DEV ONLY */
-const userId = 0;
-/* DEV ONLY */
+import { nameChangeAction } from '../../actions/configurationActions';
 
 export default class App extends React.Component {
   static propTypes = {
     wsAddresses: PropTypes.array.isRequired,
     wsConnections: PropTypes.object.isRequired,
-    userIdNames: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
     ui: PropTypes.object.isRequired,
     connection: PropTypes.object.isRequired,
     changeActiveWsServer: PropTypes.func.isRequired,
@@ -29,8 +26,17 @@ export default class App extends React.Component {
   }
 
   handleConnectNew = (wsAddress) => {
+    // TODO check if the ws address is valid and refuse to connect if that's the case
     this.props.connectNew(wsAddress);
     this.forceUpdate();
+  }
+
+  changeName = (name) => {
+    for (let wsAddress in this.props.wsConnections) {
+      this.props.wsConnections[wsAddress].ws.send(
+        JSON.stringify(nameChangeAction(name, this.props.user.id))
+      );
+    }
   }
 
   render () {
@@ -39,7 +45,7 @@ export default class App extends React.Component {
     const wsNames = this.props.wsAddresses
       .map(wsAddress => ({
         address: wsAddress,
-        name: this.props.connection[wsAddress] ? this.props.connection[wsAddress].name : '...'
+        name: this.props.connection[wsAddress] ? this.props.connection[wsAddress].serverName : '...'
       }));
     return (
       <div className="layout">
@@ -49,10 +55,14 @@ export default class App extends React.Component {
             <MenuView
               wsNames={wsNames}
               changeActiveWsServer={this.changeActiveWsServer}/>
-            <ChatViewContainer ws={ws} userId={userId} userIdNames={this.props.userIdNames}/>
+            <ChatViewContainer
+              ws={ws}
+              user={this.props.user}/>
           </div>
           <div className={`secondary-content ${visibleConfig ? 'visible' : 'hidden'}`}>
-            <ConfigurationViewContainer connectNew={this.handleConnectNew}/>
+            <ConfigurationViewContainer
+              connectNew={this.handleConnectNew}
+              changeName={this.changeName}/>
           </div>
         </div>
         <Footer/>

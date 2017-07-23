@@ -11,8 +11,9 @@ export default class MessagesListView extends React.Component {
   static propTypes = {
     messages: PropTypes.array.isRequired,
     // TODO define if ownerId will be a string or a number
-    userId: PropTypes.number.isRequired,
-    userIdNames: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    connection: PropTypes.object.isRequired,
+    activeWsAddress: PropTypes.string.isRequired
   }
 
   constructor (props) {
@@ -81,12 +82,13 @@ export default class MessagesListView extends React.Component {
         );
       }
 
+      let msgUserName = this.props.connection[this.props.activeWsAddress].userNames[msg.userId] || 'Anonymous';
       content.push(
         <MessageView
           key={idx}
-          userName={this.props.userIdNames[msg.userId]}
+          userName={msgUserName}
           messageTime={new Date(msg.timestamp)}
-          isFromUser={this.props.userId === msg.userId}>
+          isFromUser={this.props.user.id === msg.userId}>
             {msg.htmlMessage}
         </MessageView>
       );

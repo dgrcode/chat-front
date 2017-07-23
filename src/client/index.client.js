@@ -8,20 +8,51 @@ import { Provider, connect } from 'react-redux';
 import reducers from './reducers/reducers';
 import App from './components/App';
 import { setActiveWs } from './actions/uiActions';
+import { sendUserIdToServer } from './actions/communicationActions';
 
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-const wsAddresses = ['ws://10.0.12.177:4000'];
-const wsConnections = {}; // address -> {name, server}
+const wsAddresses = [
+//  'ws://10.0.12.177:4000'
+  'ws://172.27.35.139:4000'
+];
+const wsConnections = {}; // address -> {name, server}/
+/* DEV ONLY */
 window.wsConnections = wsConnections;
+/* DEV ONLY */
+
+function getCookieMap () {
+  return document.cookie.split(';')
+    .map(kv => kv.trim())
+    .map(kv => [kv.slice(0, kv.indexOf('=')), kv.slice(kv.indexOf('=') + 1)])
+    .reduce((acc, [k, v]) => {
+      acc[k] = v;
+      return acc;
+    }, {});
+}
 
 function setupConnection (wsAddress) {
   wsConnections[wsAddress] = {};
   wsConnections[wsAddress].ws = new WebSocket(wsAddress);
+
+  wsConnections[wsAddress].ws.onopen = event => {
+    const cookies = getCookieMap();
+    const userId = cookies.uid;
+    const wsAction = sendUserIdToServer(userId);
+    event.target.send(JSON.stringify(wsAction));
+  };
+
   wsConnections[wsAddress].ws.onmessage = event => {
     const wsAction = JSON.parse(event.data);
     wsAction.payload.wsAddress = wsAddress;
     store.dispatch(wsAction);
+    if (wsAction.type === 'USER_INFO') {
+      const cookies = getCookieMap();
+      const userId = cookies.uid;
+      if (userId === undefined) {
+        document.cookie = 'uid=' + wsAction.payload.userId;
+      }
+    }
   };
 }
 
@@ -30,18 +61,10 @@ function addNewConnection (wsAddress) {
   setupConnection(wsAddress);
 }
 
-
-/* ONLY DEV */
-const userIdNames = {
-  0: 'Dani',
-  1: 'Laura',
-  2: 'Peter'
-};
-/* ONLY DEV */
-
 const appMapStateToProps = state => ({
   ui: state.ui,
-  connection: state.connection
+  connection: state.connection,
+  user: state.user
 });
 const appMapDispatchToProps = dispatch => ({
   changeActiveWsServer: wsAddress => {
@@ -63,7 +86,6 @@ window.onload = function () {
       <AppContainer
         wsAddresses={wsAddresses}
         wsConnections={wsConnections}
-        userIdNames={userIdNames}
         connectNew={addNewConnection}/>
     </Provider>,
     document.getElementById('root')

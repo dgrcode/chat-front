@@ -8,3 +8,13 @@ export function changeSendStyle (sendWithEnter) {
     }
   });
 }
+
+export function nameChangeAction (name, userId) {
+  return ({
+    type: 'NAME_CHANGE',
+    payload: {
+      name,
+      userId
+    }
+  });
+}

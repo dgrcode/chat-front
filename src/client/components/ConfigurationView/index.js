@@ -9,14 +9,23 @@ export default class ConfigurationView extends React.Component {
     // TODO do I use `isVisible`?
     isVisible: PropTypes.bool.isRequired,
     onChangeSendStyle: PropTypes.func.isRequired,
-    connectNew: PropTypes.func.isRequired
+    connectNew: PropTypes.func.isRequired,
+    changeName: PropTypes.func.isRequired,
+    userName: PropTypes.string
   }
 
   constructor (props) {
     super(props);
     this.state = {
-      connectionInput: ''
+      connectionInput: '',
+      nameInput: ''
     };
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.userName !== '') {
+      this.setState({ nameInput: nextProps.userName });
+    }
   }
 
   onChangeSendStyle = evt => {
@@ -27,18 +36,35 @@ export default class ConfigurationView extends React.Component {
     this.setState({ connectionInput: evt.target.value });
   }
 
+  handleNameInputChange = evt => {
+    this.setState({ nameInput: evt.target.value });
+  }
+
   handleConnect = () => {
-    // TODO check if the ws address is valid and refuse to connect if that's the case
     this.props.connectNew(this.state.connectionInput);
+    this.setState({ connectionInput: '' });
+  }
+
+  handleChangeName = () => {
+    this.props.changeName(this.state.nameInput);
   }
 
   render () {
     return (
       <div className="configuration" id="configuration">
+        <em>{`Hi ${this.props.userName}!`}</em>
+        <h3>Name</h3>
+        Set your name:
+          <input type="text"
+            onChange={this.handleNameInputChange}
+            value={this.state.nameInput}/>
+          <button onClick={this.handleChangeName}>Submit</button>
         <h3>Connections</h3>
         <label>
-          Add new connection
-          <input type="text" onChange={this.handleConnectionInputChange}/>
+          Add new connection:
+          <input type="text"
+            onChange={this.handleConnectionInputChange}
+            value={this.state.connectionInput}/>
           <button onClick={this.handleConnect}>Connect</button>
         </label>
 
