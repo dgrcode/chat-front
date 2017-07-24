@@ -1,5 +1,9 @@
+@import "../../styles/variables.sass"
+
 #root
   height: 100%
+  color: $primaryColorDark
+  font-family: $primaryFont
 
 .layout
   display: flex
@@ -13,12 +17,6 @@
   top: 0
   right: 0
   left: 0
-
-.footer
-  height: 25px
-  bottom: 0
-  left: 0
-  right: 0
 
 .content
   display: flex
@@ -38,8 +36,7 @@
 
     .chat
       order: 2
-      flex: 0 1 70%
-      //min-width: 450px
+      flex: 0 1 100%
 
   .secondary-content
     transition: width .3s
@@ -50,4 +47,4 @@
 
     .configuration
       height: 100%
-      width: 200px
+      width: $configurationSize

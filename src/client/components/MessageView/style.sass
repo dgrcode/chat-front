@@ -1,10 +1,10 @@
-$fromAnotherColor: rgba(194, 228, 255, 1)
-$fromUserColor: rgba(194, 255, 235, 1)
+@import "../../styles/variables.sass"
+
 .message
   width: auto
   max-width: 80%
   margin: 10px 0
-  padding: 10px
+  padding: 6px 15px
   border-radius: 2px
   position: relative
 
@@ -27,6 +27,7 @@ $fromUserColor: rgba(194, 255, 235, 1)
   background-color: $fromAnotherColor
   margin-left: 20px
   margin-right: auto
+  border-radius: 20px 20px 20px 0
 
   &:after
     content: ""
@@ -45,6 +46,7 @@ $fromUserColor: rgba(194, 255, 235, 1)
     margin-left: auto
     margin-right: 20px
     text-align: right
+    border-radius: 20px 20px 0 20px
 
     &:after
       content: ""

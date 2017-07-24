@@ -3,9 +3,9 @@ import './style.sass';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import NavbarContainer from '../../containers/NavbarContainer';
-import Footer from '../Footer';
+//import NavbarContainer from '../../containers/NavbarContainer';
 import MenuView from '../MenuView';
+import SettingsIcon from '../SettingsIcon';
 import ConfigurationViewContainer from '../../containers/ConfigurationViewContainer';
 import ChatViewContainer from '../../containers/ChatViewContainer';
 import { nameChangeAction } from '../../actions/configurationActions';
@@ -18,6 +18,7 @@ export default class App extends React.Component {
     ui: PropTypes.object.isRequired,
     connection: PropTypes.object.isRequired,
     changeActiveWsServer: PropTypes.func.isRequired,
+    dispatchToggleConfig: PropTypes.func.isRequired,
     connectNew: PropTypes.func.isRequired
   }
 
@@ -49,23 +50,25 @@ export default class App extends React.Component {
       }));
     return (
       <div className="layout">
-        <NavbarContainer/>
         <div className="content">
           <div className="main-content">
             <MenuView
               wsNames={wsNames}
-              changeActiveWsServer={this.changeActiveWsServer}/>
+              changeActiveWsServer={this.changeActiveWsServer}
+              dispatchToggleConfig={this.props.dispatchToggleConfig}/>
             <ChatViewContainer
               ws={ws}
               user={this.props.user}/>
+            <SettingsIcon visibleConfig={visibleConfig} onClick={this.props.dispatchToggleConfig}/>
           </div>
-          <div className={`secondary-content ${visibleConfig ? 'visible' : 'hidden'}`}>
-            <ConfigurationViewContainer
-              connectNew={this.handleConnectNew}
-              changeName={this.changeName}/>
-          </div>
+          {visibleConfig ? (
+            <div className={`secondary-content ${visibleConfig ? 'visible' : 'hidden'}`}>
+              <ConfigurationViewContainer
+                connectNew={this.handleConnectNew}
+                changeName={this.changeName}/>
+            </div>
+          ) : null}
         </div>
-        <Footer/>
       </div>
     );
   }

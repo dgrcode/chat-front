@@ -1,5 +1,6 @@
 'use strict';
 import './style.sass';
+import settingsSvg from '../../assets/settingsSvg';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -17,7 +18,7 @@ export default class Navbar extends React.Component {
     return (
       <div className="navbar" id="navbar">
         <div className="server-name">TITLE</div>
-        <button id="toggle-config" onClick={this.toggleConfig}>CFG</button>
+        <button id="toggle-config" onClick={this.toggleConfig}>{settingsSvg}</button>
       </div>
     );
   }

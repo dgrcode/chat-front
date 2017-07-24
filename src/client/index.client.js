@@ -9,6 +9,7 @@ import reducers from './reducers/reducers';
 import App from './components/App';
 import { setActiveWs } from './actions/uiActions';
 import { sendUserIdToServer } from './actions/communicationActions';
+import { toggleConfig } from './actions/uiActions';
 
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
@@ -69,6 +70,10 @@ const appMapStateToProps = state => ({
 const appMapDispatchToProps = dispatch => ({
   changeActiveWsServer: wsAddress => {
     dispatch(setActiveWs(wsAddress));
+  },
+  dispatchToggleConfig: () => {
+    console.log('YEAH!');
+    dispatch(toggleConfig());
   }
 });
 const AppContainer = connect(appMapStateToProps, appMapDispatchToProps)(App);

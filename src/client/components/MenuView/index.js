@@ -3,11 +3,13 @@ import './style.sass';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import logoSvg from '../../assets/logoSvg';
 
 export default class MenuView extends React.Component {
   static propTypes = {
     wsNames: PropTypes.array.isRequired,
-    changeActiveWsServer: PropTypes.func.isRequired
+    changeActiveWsServer: PropTypes.func.isRequired,
+    dispatchToggleConfig: PropTypes.func.isRequired
   }
 
   handleClick (idx) {
@@ -18,20 +20,21 @@ export default class MenuView extends React.Component {
 
   render () {
     return (
-      <div className="menu">
-        <h2>Rooms</h2>
+      <div className="menu" id="menu">
+        {logoSvg}
         {
           this.props.wsNames.map((wsInfo, idx) =>
-          (<div className="ws-info" key={idx}>
-            <button
+          (<button className="ws-info" key={idx}>
+            <div
               className="ws-name"
               onClick={this.handleClick.bind(this, idx)}>
                 {wsInfo.name}
-            </button>
-            <em className="ws-address"> - {wsInfo.address}</em>
-          </div>)
+            </div>
+            <em className="ws-address">{wsInfo.address}</em>
+          </button>)
           )
         }
+        <button className="button-add-server" onClick={this.props.dispatchToggleConfig}>Add</button>
       </div>
     );
   }

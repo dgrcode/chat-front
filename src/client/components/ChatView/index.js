@@ -5,6 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MessagesListViewContainer from '../../containers/MessagesListViewContainer';
 import WritingBoxView from '../WritingBoxView';
+import Footer from '../Footer';
 import { createMessageAction } from '../../actions/messageActions';
 
 export default class ChatView extends React.Component {
@@ -34,6 +35,7 @@ export default class ChatView extends React.Component {
           handleSend={this.handleSend}
           messageHistory={this.props.messageHistory}
           sendWithEnter={this.props.sendWithEnter}/>
+        <Footer/>
       </div>
     );
   }
