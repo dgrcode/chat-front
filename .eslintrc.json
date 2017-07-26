@@ -1,0 +1,18 @@
+{
+	"rules": {
+    "indent": [
+      "error",
+      2
+    ],
+    "no-unused-vars": [
+      "error",
+      {"varsIgnorePattern": "_$|^React$"}
+    ]
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "extends": "react"
+}

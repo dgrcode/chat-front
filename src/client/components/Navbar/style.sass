@@ -1,17 +1,21 @@
+@import "../../styles/variables.sass"
+
 .navbar
   display: flex
   position: relative
   flex-direction: row
-  vertical-align: center
-  background-color: rgba(100, 50, 50, 1)
-  border: 1px solid blue
+  justify-content: space-between
+  align-items: center
+  background-color: $primaryColor
   z-index: 1000
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .3)
+  box-sizing: border-box
+  color: white
 
-  .server-title
-    display: flex
-    align-items: center
+  @media only screen and (max-width : $breakPhone)
+    padding: 12px
 
-  #toggle-config
-    margin: 4px
-    margin-left: auto
-    border-radius: 4px
+  .settings-button
+
+    path
+      fill: white

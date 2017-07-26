@@ -1,9 +1,10 @@
 'use strict';
 import './style.sass';
-import settingsSvg from '../../assets/settingsSvg';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import SettingsIcon from '../SettingsIcon';
+import MenuIcon from '../MenuIcon';
 
 export default class Navbar extends React.Component {
   static propTypes = {
@@ -17,8 +18,9 @@ export default class Navbar extends React.Component {
   render () {
     return (
       <div className="navbar" id="navbar">
+        <MenuIcon onClick={() => {}}/>
         <div className="server-name">TITLE</div>
-        <button id="toggle-config" onClick={this.toggleConfig}>{settingsSvg}</button>
+        <SettingsIcon onClick={this.props.dispatchToggleConfig}/>
       </div>
     );
   }

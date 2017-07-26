@@ -3,7 +3,7 @@ import './style.sass';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-//import NavbarContainer from '../../containers/NavbarContainer';
+import NavbarContainer from '../../containers/NavbarContainer';
 import MenuView from '../MenuView';
 import SettingsIcon from '../SettingsIcon';
 import ConfigurationViewContainer from '../../containers/ConfigurationViewContainer';
@@ -50,6 +50,7 @@ export default class App extends React.Component {
       }));
     return (
       <div className="layout">
+      <NavbarContainer/>
         <div className="content">
           <div className="main-content">
             <MenuView
@@ -61,7 +62,7 @@ export default class App extends React.Component {
               user={this.props.user}/>
           </div>
           <div className={`secondary-content ${visibleConfig ? 'visible' : 'hidden'}`}>
-            <SettingsIcon visibleConfig={visibleConfig} onClick={this.props.dispatchToggleConfig}/>
+            <SettingsIcon phoneHidden visibleConfig={visibleConfig} onClick={this.props.dispatchToggleConfig}/>
             <ConfigurationViewContainer
               connectNew={this.handleConnectNew}
               changeName={this.changeName}/>
