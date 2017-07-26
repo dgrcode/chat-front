@@ -13,6 +13,11 @@ export default function configurationReducer (state = defaultUi, action) {
     });
     break;
 
+  case 'SET_CONFIG_STATE':
+    return Object.assign({}, state, {
+      visibleConfig: action.payload.isVisible
+    });
+
   case 'SET_ACTIVE_WS':
     return Object.assign({}, state, {
       activeWsAddress: action.payload.wsAddress

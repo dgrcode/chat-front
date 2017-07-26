@@ -9,14 +9,14 @@ import reducers from './reducers/reducers';
 import App from './components/App';
 import { setActiveWs } from './actions/uiActions';
 import { sendUserIdToServer } from './actions/communicationActions';
-import { toggleConfig } from './actions/uiActions';
+import { toggleConfig, setConfigVisibleState } from './actions/uiActions';
 
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const wsAddresses = [
 //  'ws://10.0.12.177:4000'
 //  'ws://172.27.35.139:4000'
- 'ws://10.0.11.111:4000'
+  'ws://10.0.11.111:4000'
 // 'ws://10.0.14.11:4000'
 // 'ws://172.27.35.95:4000'
 ];
@@ -76,6 +76,9 @@ const appMapDispatchToProps = dispatch => ({
   },
   dispatchToggleConfig: () => {
     dispatch(toggleConfig());
+  },
+  dispatchCloseConfig: () => {
+    dispatch(setConfigVisibleState(false));
   }
 });
 const AppContainer = connect(appMapStateToProps, appMapDispatchToProps)(App);

@@ -19,6 +19,7 @@ export default class App extends React.Component {
     connection: PropTypes.object.isRequired,
     changeActiveWsServer: PropTypes.func.isRequired,
     dispatchToggleConfig: PropTypes.func.isRequired,
+    dispatchCloseConfig: PropTypes.func.isRequired,
     connectNew: PropTypes.func.isRequired
   }
 
@@ -40,6 +41,21 @@ export default class App extends React.Component {
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    const outOfFoucsClickListener = () => {
+      this.props.dispatchCloseConfig();
+    };
+    const preventDefaultClick = evt => evt.stopPropagation();
+
+    if (nextProps.ui.visibleConfig) {
+      document.getElementById('secondary-content').addEventListener('click', outOfFoucsClickListener);
+      document.getElementById('configuration').addEventListener('click', preventDefaultClick);
+    } else {
+      document.getElementById('secondary-content').addEventListener('click', outOfFoucsClickListener);
+      document.getElementById('configuration').addEventListener('click', preventDefaultClick);
+    }
+  }
+
   render () {
     const visibleConfig = this.props.ui.visibleConfig;
     const ws = this.props.wsConnections[this.props.ui.activeWsAddress].ws;
@@ -53,17 +69,19 @@ export default class App extends React.Component {
       <NavbarContainer/>
         <div className="content">
           <div className="main-content">
-            <MenuView
-              wsNames={wsNames}
-              changeActiveWsServer={this.changeActiveWsServer}
-              dispatchToggleConfig={this.props.dispatchToggleConfig}/>
+            <div className="menu-wrapper">
+              <MenuView
+                wsNames={wsNames}
+                changeActiveWsServer={this.changeActiveWsServer}
+                dispatchToggleConfig={this.props.dispatchToggleConfig}/>
+            </div>
             <ChatViewContainer
               ws={ws}
               user={this.props.user}/>
           </div>
-          <div className={`secondary-content ${visibleConfig ? 'visible' : 'hidden'}`}>
+          <div id="secondary-content" className={`secondary-content ${visibleConfig ? 'visible' : 'hidden'}`}>
             <SettingsIcon phoneHidden visibleConfig={visibleConfig} onClick={this.props.dispatchToggleConfig}/>
-            <ConfigurationViewContainer
+            <ConfigurationViewContainer id="configuration"
               connectNew={this.handleConnectNew}
               changeName={this.changeName}/>
           </div>
