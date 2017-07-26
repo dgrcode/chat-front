@@ -6,6 +6,8 @@ import { toggleConfig } from '../actions/uiActions';
 
 function mapStateToProps (state) {
   return ({
+    connection: state.connection,
+    activeWsAddress: state.ui.activeWsAddress
   });
 }
 
