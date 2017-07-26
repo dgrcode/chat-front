@@ -39,12 +39,38 @@
       flex: 0 1 100%
 
   .secondary-content
-    transition: width .3s
+    position: relative
+    top: 0
+    bottom: 0
+    right: 0
+    width: 20%
+    transform: translateX(0)
+    transition: width .6s, transform .6s
+
     &.visible
-      width: 200px
+      .configuration
+        visibility: visible
+        opacity: 1
+      //transition: visibility 0s, opacity .6s, trasnform .6s
+
     &.hidden
       width: 0
+      transform: translateX(100%)
+      .configuration
+        visibility: hidden
+        opacity: 0
 
     .configuration
+      background-color: white
       height: 100%
-      width: $configurationSize
+      width: 100%
+      min-width: 250px
+      transition: visibility .6s ease-in-out, opacity .6s
+
+    .settings-button
+      position: absolute
+      top: 10px
+      left: -34px
+      z-index: 1000
+      margin-left: auto
+      //transition: all .6s

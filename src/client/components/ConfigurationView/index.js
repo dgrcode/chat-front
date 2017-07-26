@@ -1,4 +1,5 @@
 'use strict';
+import './style.sass';
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -55,13 +56,15 @@ export default class ConfigurationView extends React.Component {
         <em>{`Hi ${this.props.userName}!`}</em>
         <h3>Name</h3>
         Set your name:
+        <label>
           <input type="text"
             onChange={this.handleNameInputChange}
             value={this.state.nameInput}/>
           <button onClick={this.handleChangeName}>Submit</button>
+        </label>
         <h3>Connections</h3>
+        Add new connection:
         <label>
-          Add new connection:
           <input type="text"
             onChange={this.handleConnectionInputChange}
             value={this.state.connectionInput}/>

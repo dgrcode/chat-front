@@ -59,15 +59,13 @@ export default class App extends React.Component {
             <ChatViewContainer
               ws={ws}
               user={this.props.user}/>
-            <SettingsIcon visibleConfig={visibleConfig} onClick={this.props.dispatchToggleConfig}/>
           </div>
-          {visibleConfig ? (
-            <div className={`secondary-content ${visibleConfig ? 'visible' : 'hidden'}`}>
-              <ConfigurationViewContainer
-                connectNew={this.handleConnectNew}
-                changeName={this.changeName}/>
-            </div>
-          ) : null}
+          <div className={`secondary-content ${visibleConfig ? 'visible' : 'hidden'}`}>
+            <SettingsIcon visibleConfig={visibleConfig} onClick={this.props.dispatchToggleConfig}/>
+            <ConfigurationViewContainer
+              connectNew={this.handleConnectNew}
+              changeName={this.changeName}/>
+          </div>
         </div>
       </div>
     );

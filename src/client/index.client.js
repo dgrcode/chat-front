@@ -15,7 +15,10 @@ const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && windo
 
 const wsAddresses = [
 //  'ws://10.0.12.177:4000'
-  'ws://172.27.35.139:4000'
+//  'ws://172.27.35.139:4000'
+ 'ws://10.0.11.111:4000'
+// 'ws://10.0.14.11:4000'
+// 'ws://172.27.35.95:4000'
 ];
 const wsConnections = {}; // address -> {name, server}/
 /* DEV ONLY */
@@ -72,7 +75,6 @@ const appMapDispatchToProps = dispatch => ({
     dispatch(setActiveWs(wsAddress));
   },
   dispatchToggleConfig: () => {
-    console.log('YEAH!');
     dispatch(toggleConfig());
   }
 });

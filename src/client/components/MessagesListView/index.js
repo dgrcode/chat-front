@@ -44,7 +44,8 @@ export default class MessagesListView extends React.Component {
     const sIdx = this.state.stickyDateIdx;
     const separators = Array.from(document.getElementsByClassName('date-separator')).slice(1);
 
-    const navbarSize = document.getElementById('navbar').getBoundingClientRect().bottom;
+    const $navbar = document.getElementById('navbar');
+    const navbarSize = $navbar ? navbar.getBoundingClientRect().bottom : 0;
     const stickyHeight = $sticky.getBoundingClientRect().height;
 
     const sepTops = separators.map(s => s.getBoundingClientRect().top - navbarSize);
