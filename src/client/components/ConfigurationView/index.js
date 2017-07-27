@@ -83,7 +83,7 @@ export default class ConfigurationView extends React.Component {
 
         <br/>
         <h3>Behaviour</h3>
-        <label>
+        <label className="no-wrap">
           <input type="checkbox" onChange={this.onChangeSendStyle}
             checked={this.props.configuration.sendWithEnter}/>
           Send messages with "enter"
