@@ -4,8 +4,26 @@ export const toggleConfig = () => ({
   type: 'TOGGLE_CONFIG'
 });
 
-export const setConfigVisibleState = (isVisible) => ({
+export const setConfigVisibleState = isVisible => ({
   type: 'SET_CONFIG_STATE',
+  payload: {
+    isVisible
+  }
+});
+
+export const toggleMenu = () => ({
+  type: 'TOGGLE_MENU'
+});
+
+export const setMenuVisibleState = isVisible => ({
+  type: 'SET_MENU_STATE',
+  payload: {
+    isVisible
+  }
+});
+
+export const setSidebarsVisibleState = isVisible => ({
+  type: 'SET_SIDEBARS_STATE',
   payload: {
     isVisible
   }

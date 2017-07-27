@@ -19,18 +19,20 @@ export default class App extends React.Component {
     connection: PropTypes.object.isRequired,
     changeActiveWsServer: PropTypes.func.isRequired,
     dispatchToggleConfig: PropTypes.func.isRequired,
-    dispatchCloseConfig: PropTypes.func.isRequired,
+    dispatchCloseSidebars: PropTypes.func.isRequired,
     connectNew: PropTypes.func.isRequired
   }
 
   componentDidMount () {
+    const $menuWrapper = document.getElementById('menu-wrapper');
     const $secondaryContent = document.getElementById('secondary-content');
-    const outOfFoucsClickListener = evt => {
-      if (evt.target === $secondaryContent) {
-        this.props.dispatchCloseConfig();
+    const outOfFoucsClickListenerCurry = target => evt => {
+      if (evt.target === target) {
+        this.props.dispatchCloseSidebars();
       }
     };
-    $secondaryContent.addEventListener('click', outOfFoucsClickListener);
+    $secondaryContent.addEventListener('click', outOfFoucsClickListenerCurry($secondaryContent));
+    $menuWrapper.addEventListener('click', outOfFoucsClickListenerCurry($menuWrapper));
   }
 
   changeActiveWsServer = wsAddress => {
@@ -53,6 +55,7 @@ export default class App extends React.Component {
 
   render () {
     const visibleConfig = this.props.ui.visibleConfig;
+    const visibleMenu = this.props.ui.visibleMenu;
     const ws = this.props.wsConnections[this.props.ui.activeWsAddress].ws;
     const wsNames = this.props.wsAddresses
       .map(wsAddress => ({
@@ -64,7 +67,7 @@ export default class App extends React.Component {
       <NavbarContainer/>
         <div className="content">
           <div className="main-content">
-            <div className="menu-wrapper">
+            <div id="menu-wrapper" className={`menu-wrapper ${visibleMenu ? 'visible' : 'hidden'}`}>
               <MenuView
                 wsNames={wsNames}
                 changeActiveWsServer={this.changeActiveWsServer}

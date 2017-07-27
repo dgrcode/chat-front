@@ -2,7 +2,7 @@
 
 import { connect } from 'react-redux';
 import Navbar from '../components/Navbar';
-import { toggleConfig } from '../actions/uiActions';
+import { toggleConfig, setConfigVisibleState, toggleMenu, setMenuVisibleState } from '../actions/uiActions';
 
 function mapStateToProps (state) {
   return ({
@@ -13,9 +13,10 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return ({
-    dispatchToggleConfig: () => {
-      dispatch(toggleConfig());
-    }
+    dispatchToggleConfig: () => dispatch(toggleConfig()),
+    dispatchToggleMenu: () => dispatch(toggleMenu()),
+    dispatchCloseConfig: () => dispatch(setConfigVisibleState(false)),
+    dispatchCloseMenu: () => dispatch(setMenuVisibleState(false))
   });
 }
 

@@ -9,12 +9,21 @@ import MenuIcon from '../MenuIcon';
 export default class Navbar extends React.Component {
   static propTypes = {
     dispatchToggleConfig: PropTypes.func.isRequired,
+    dispatchToggleMenu: PropTypes.func.isRequired,
+    dispatchCloseConfig: PropTypes.func.isRequired,
+    dispatchCloseMenu: PropTypes.func.isRequired,
     connection: PropTypes.object.isRequired,
     activeWsAddress: PropTypes.string
   }
 
-  toggleConfig = () => {
+  handleOpenMenu = () => {
+    this.props.dispatchToggleMenu();
+    this.props.dispatchCloseConfig();
+  }
+
+  handleOpenConfig = () => {
     this.props.dispatchToggleConfig();
+    this.props.dispatchCloseMenu();
   }
 
   render () {
@@ -23,11 +32,11 @@ export default class Navbar extends React.Component {
 
     return (
       <div className="navbar" id="navbar">
-        <MenuIcon onClick={() => {}}/>
+        <MenuIcon onClick={this.handleOpenMenu}/>
         <div className="server-name">
           {activeWsAddress && connection[activeWsAddress] ? connection[activeWsAddress].serverName : 'Not connected'}
         </div>
-        <SettingsIcon onClick={this.props.dispatchToggleConfig}/>
+        <SettingsIcon onClick={this.handleOpenConfig}/>
       </div>
     );
   }
