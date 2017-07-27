@@ -23,6 +23,16 @@ export default class App extends React.Component {
     connectNew: PropTypes.func.isRequired
   }
 
+  componentDidMount () {
+    const $secondaryContent = document.getElementById('secondary-content');
+    const outOfFoucsClickListener = evt => {
+      if (evt.target === $secondaryContent) {
+        this.props.dispatchCloseConfig();
+      }
+    };
+    $secondaryContent.addEventListener('click', outOfFoucsClickListener);
+  }
+
   changeActiveWsServer = wsAddress => {
     this.props.changeActiveWsServer(wsAddress);
   }
@@ -38,21 +48,6 @@ export default class App extends React.Component {
       this.props.wsConnections[wsAddress].ws.send(
         JSON.stringify(nameChangeAction(name, this.props.user.id))
       );
-    }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    const outOfFoucsClickListener = () => {
-      this.props.dispatchCloseConfig();
-    };
-    const preventDefaultClick = evt => evt.stopPropagation();
-
-    if (nextProps.ui.visibleConfig) {
-      document.getElementById('secondary-content').addEventListener('click', outOfFoucsClickListener);
-      document.getElementById('configuration').addEventListener('click', preventDefaultClick);
-    } else {
-      document.getElementById('secondary-content').addEventListener('click', outOfFoucsClickListener);
-      document.getElementById('configuration').addEventListener('click', preventDefaultClick);
     }
   }
 
