@@ -77,6 +77,16 @@ export default class WritingBoxView extends React.Component {
   }
 
   handleChange = (event) => {
+    /*
+    check the amount of lines:
+    https://stackoverflow.com/questions/2035910/how-to-get-the-number-of-lines-in-a-textarea
+
+    $(document).ready(function(){
+      var lht = parseInt($('textarea').css('lineHeight'),10);
+      var lines = $('textarea').attr('scrollHeight') / lht;
+      console.log(lines);
+    })
+    */
     this.setState({ message: event.target.value });
   }
 
