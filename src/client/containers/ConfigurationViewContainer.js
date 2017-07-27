@@ -3,20 +3,19 @@
 import { connect } from 'react-redux';
 import ConfigurationView from '../components/ConfigurationView';
 import { changeSendStyle } from '../actions/configurationActions';
+import { setConfigVisibleState } from '../actions/uiActions';
 
 function mapStateToProps (state) {
   return ({
     configuration: state.configuration,
-    isVisible: state.ui.visibleConfig,
     userName: state.user.name
   });
 }
 
 function mapDispatchToProps (dispatch) {
   return ({
-    onChangeSendStyle: sendWithEnter => {
-      dispatch(changeSendStyle(sendWithEnter));
-    }
+    onChangeSendStyle: sendWithEnter => dispatch(changeSendStyle(sendWithEnter)),
+    dispatchCloseConfig: () => dispatch(setConfigVisibleState(false))
   });
 }
 

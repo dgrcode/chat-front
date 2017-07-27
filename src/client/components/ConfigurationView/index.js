@@ -7,9 +7,8 @@ import PropTypes from 'prop-types';
 export default class ConfigurationView extends React.Component {
   static propTypes = {
     configuration: PropTypes.object.isRequired,
-    // TODO do I use `isVisible`?
-    isVisible: PropTypes.bool.isRequired,
     onChangeSendStyle: PropTypes.func.isRequired,
+    dispatchCloseConfig: PropTypes.func.isRequired,
     connectNew: PropTypes.func.isRequired,
     changeName: PropTypes.func.isRequired,
     userName: PropTypes.string
@@ -29,7 +28,16 @@ export default class ConfigurationView extends React.Component {
     }
   }
 
+  closeConfigIfPhone = () => {
+    const $phoneCheck = document.getElementsByClassName('phone-hidden')[0];
+    const isPhone = window.getComputedStyle($phoneCheck).visibility === 'hidden';
+    if (isPhone) {
+      this.props.dispatchCloseConfig();
+    }
+  }
+
   onChangeSendStyle = evt => {
+    this.closeConfigIfPhone();
     this.props.onChangeSendStyle(evt.target.checked);
   }
 
@@ -42,11 +50,13 @@ export default class ConfigurationView extends React.Component {
   }
 
   handleConnect = () => {
+    this.closeConfigIfPhone();
     this.props.connectNew(this.state.connectionInput);
     this.setState({ connectionInput: '' });
   }
 
   handleChangeName = () => {
+    this.closeConfigIfPhone();
     this.props.changeName(this.state.nameInput);
   }
 

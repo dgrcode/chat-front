@@ -71,7 +71,8 @@ export default class App extends React.Component {
               <MenuView
                 wsNames={wsNames}
                 changeActiveWsServer={this.changeActiveWsServer}
-                dispatchToggleConfig={this.props.dispatchToggleConfig}/>
+                dispatchToggleConfig={this.props.dispatchToggleConfig}
+                dispatchCloseSidebars={this.props.dispatchCloseSidebars}/>
             </div>
             <ChatViewContainer
               ws={ws}
