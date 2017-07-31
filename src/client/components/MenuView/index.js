@@ -3,7 +3,6 @@ import './style.sass';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import logoSvg from '../../assets/logoSvg';
 
 export default class MenuView extends React.Component {
   static propTypes = {
@@ -23,17 +22,17 @@ export default class MenuView extends React.Component {
   render () {
     return (
       <div className="menu" id="menu">
-        {logoSvg}
+        <img id="logo" src="logocat.png"/>
         {
           this.props.wsNames.map((wsInfo, idx) =>
-          (<button className="ws-info" key={idx}>
+          (<div className="ws-info" key={idx}>
             <div
               className="ws-name"
               onClick={this.handleClick.bind(this, idx)}>
                 {wsInfo.name}
             </div>
             <em className="ws-address">{wsInfo.address}</em>
-          </button>)
+          </div>)
           )
         }
         <button className="button-add-server" onClick={this.props.dispatchToggleConfig}>Add</button>

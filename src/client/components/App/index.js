@@ -56,7 +56,8 @@ export default class App extends React.Component {
   render () {
     const visibleConfig = this.props.ui.visibleConfig;
     const visibleMenu = this.props.ui.visibleMenu;
-    const ws = this.props.wsConnections[this.props.ui.activeWsAddress].ws;
+    const activeWsAddress = this.props.ui.activeWsAddress;
+    const ws = activeWsAddress ? this.props.wsConnections[this.props.ui.activeWsAddress].ws : undefined;
     const wsNames = this.props.wsAddresses
       .map(wsAddress => ({
         address: wsAddress,

@@ -10,7 +10,7 @@ import { createMessageAction } from '../../actions/messageActions';
 
 export default class ChatView extends React.Component {
   static propTypes = {
-    ws: PropTypes.instanceOf(WebSocket).isRequired,
+    ws: PropTypes.instanceOf(WebSocket),
     // TODO define if ownerId will be a string or a number
     user: PropTypes.object.isRequired,
     sendWithEnter: PropTypes.bool.isRequired,

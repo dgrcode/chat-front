@@ -16,7 +16,7 @@ const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && windo
 const wsAddresses = [
 //  'ws://10.0.12.177:4000'
 //  'ws://172.27.35.139:4000'
-  'wss://10.0.11.111:4000'
+//  'wss://10.0.11.111:4000'
 // 'ws://10.0.14.11:4000'
 // 'ws://172.27.35.95:4000'
   // 'ws://172.27.35.95:4000'
@@ -59,6 +59,8 @@ function setupConnection (wsAddress) {
       }
     }
   };
+
+  store.dispatch(setActiveWs(wsAddress));
 }
 
 function addNewConnection (wsAddress) {
@@ -84,7 +86,7 @@ window.onload = function () {
   }
 
   // TODO by default starts with the first ws. Change that?
-  store.dispatch(setActiveWs(wsAddresses[0]));
+  //store.dispatch(setActiveWs(wsAddresses[0]));
 
   ReactDom.render(
     <Provider store={store}>

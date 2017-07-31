@@ -13,7 +13,7 @@ export default class MessagesListView extends React.Component {
     // TODO define if ownerId will be a string or a number
     user: PropTypes.object.isRequired,
     connection: PropTypes.object.isRequired,
-    activeWsAddress: PropTypes.string.isRequired
+    activeWsAddress: PropTypes.string
   }
 
   constructor (props) {
@@ -22,6 +22,10 @@ export default class MessagesListView extends React.Component {
       stickyDateIdx: 0,
       stickyDate: ''
     };
+  }
+
+  componentDidMount () {
+    this.handleScroll();
   }
 
   componentWillUpdate () {
@@ -41,11 +45,12 @@ export default class MessagesListView extends React.Component {
 
   handleScroll = () => {
     const $sticky = document.getElementsByClassName('sticky')[0];
+    if (!$sticky) return;
     const sIdx = this.state.stickyDateIdx;
     const separators = Array.from(document.getElementsByClassName('date-separator')).slice(1);
 
     const $navbar = document.getElementById('navbar');
-    const navbarSize = $navbar ? navbar.getBoundingClientRect().bottom : 0;
+    const navbarSize = $navbar.getBoundingClientRect().bottom;
     const stickyHeight = $sticky.getBoundingClientRect().height;
 
     const sepTops = separators.map(s => s.getBoundingClientRect().top - navbarSize);
@@ -99,11 +104,13 @@ export default class MessagesListView extends React.Component {
   }
 
   render () {
+    // TODO UGLY
     return (
       <div className="messages-list" onScroll={this.handleScroll}
         ref={list => {this.list = list;}}>
-        <DateSeparator sticky date={this.state.stickyDate}/>
-        {this.renderMessages()}
+        {this.props.activeWsAddress ? null : <div className="feedback no-ws">Connect to a WebSocket to start using the app</div>}
+        {this.props.activeWsAddress ? <DateSeparator sticky date={this.state.stickyDate}/> : null}
+        {this.props.activeWsAddress ? this.renderMessages() : null}
       </div>
     );
   }
