@@ -3,6 +3,12 @@
 let modifiedState;
 let wsAddress;
 let currentMessages;
+const messageSorter = (a, b) => {
+  if (a.timestamp === b.timestamp) return 0;
+  if (a.timestamp - b.timestamp < 0) return -1;
+  return 1;
+};
+
 export default function messageReducer (state = {}, action) {
   switch (action.type) {
   case 'MESSAGE':
@@ -15,7 +21,8 @@ export default function messageReducer (state = {}, action) {
     };
     modifiedState = {};
     currentMessages = state[wsAddress] || [];
-    modifiedState[wsAddress] = [...currentMessages.splice(-100), newMessage];
+    modifiedState[wsAddress] = [...currentMessages.splice(-100), newMessage]
+        .sort(messageSorter);
     return Object.assign({}, state, modifiedState);
     break;
 
@@ -29,7 +36,8 @@ export default function messageReducer (state = {}, action) {
     }));
     modifiedState = {};
     currentMessages = state[wsAddress] || [];
-    modifiedState[wsAddress] = [...currentMessages.splice(-100), ...newMessageGroup];
+    modifiedState[wsAddress] = [...currentMessages.splice(-100), ...newMessageGroup]
+        .sort(messageSorter);
     return Object.assign({}, state, modifiedState);
 
 
