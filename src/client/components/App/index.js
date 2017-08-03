@@ -16,6 +16,7 @@ export default class App extends React.Component {
     wsConnections: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
     ui: PropTypes.object.isRequired,
+    configuration: PropTypes.object.isRequired,
     connection: PropTypes.object.isRequired,
     changeActiveWsServer: PropTypes.func.isRequired,
     dispatchToggleConfig: PropTypes.func.isRequired,
@@ -46,10 +47,16 @@ export default class App extends React.Component {
   }
 
   changeName = (name) => {
-    for (let wsAddress in this.props.wsConnections) {
-      this.props.wsConnections[wsAddress].ws.send(
+    if (this.props.configuration.changeNameOnlyActive) {
+      this.props.wsConnections[this.props.ui.activeWsAddress].ws.send(
         JSON.stringify(nameChangeAction(name, this.props.user.id))
       );
+    } else {
+      for (let wsAddress in this.props.wsConnections) {
+        this.props.wsConnections[wsAddress].ws.send(
+          JSON.stringify(nameChangeAction(name, this.props.user.id))
+        );
+      }
     }
   }
 

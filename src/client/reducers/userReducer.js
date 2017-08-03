@@ -9,14 +9,18 @@ export default function configurationReducer (state = defaultUser, action) {
   case 'USER_INFO':
     return Object.assign({}, state, {
       id: action.payload.userId,
-      name: action.payload.name
+      name: Object.assign({}, state.name, {
+        [action.payload.wsAddress]: action.payload.name
+      })
     });
     break;
 
   case 'NAME_CHANGE':
     if (!state.id || action.payload.userId !== state.id) return state;
     return Object.assign({}, state, {
-      name: action.payload.name
+      name: Object.assign({}, state.name, {
+        [action.payload.wsAddress]: action.payload.name
+      })
     });
     break;
 

@@ -71,6 +71,7 @@ function addNewConnection (wsAddress) {
 const appMapStateToProps = state => ({
   ui: state.ui,
   connection: state.connection,
+  configuration: state.configuration,
   user: state.user
 });
 const appMapDispatchToProps = dispatch => ({

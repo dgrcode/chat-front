@@ -8,9 +8,12 @@ export default class ConfigurationView extends React.Component {
   static propTypes = {
     configuration: PropTypes.object.isRequired,
     onChangeSendStyle: PropTypes.func.isRequired,
+    onChangeNameOnlyActive: PropTypes.func.isRequired,
     dispatchCloseConfig: PropTypes.func.isRequired,
+    connection: PropTypes.object.isRequired,
     connectNew: PropTypes.func.isRequired,
     changeName: PropTypes.func.isRequired,
+    ui: PropTypes.object.isRequired,
     userName: PropTypes.string
   }
 
@@ -24,7 +27,7 @@ export default class ConfigurationView extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.userName !== '') {
-      this.setState({ nameInput: nextProps.userName });
+      this.setState({ nameInput: nextProps.userName[nextProps.ui.activeWsAddress] });
     }
   }
 
@@ -39,6 +42,10 @@ export default class ConfigurationView extends React.Component {
   onChangeSendStyle = evt => {
     this.closeConfigIfPhone();
     this.props.onChangeSendStyle(evt.target.checked);
+  }
+
+  onChangeNameOnlyActive = evt => {
+    this.props.onChangeNameOnlyActive(evt.target.checked);
   }
 
   handleConnectionInputChange = evt => {
@@ -63,7 +70,10 @@ export default class ConfigurationView extends React.Component {
   render () {
     return (
       <div className="configuration" id="configuration">
-        <em>{`Hi ${this.props.userName}!`}</em>
+        {this.props.ui.activeWsAddress ?
+          <em>{`Hi ${this.props.userName[this.props.ui.activeWsAddress]}!`}</em> :
+          null
+        }
         <h3>Name</h3>
         Set your name:
         <label>
@@ -71,6 +81,13 @@ export default class ConfigurationView extends React.Component {
             onChange={this.handleNameInputChange}
             value={this.state.nameInput}/>
           <button onClick={this.handleChangeName}>Submit</button>
+          { this.props.ui.activeWsAddress ? (
+            <label>
+              <input type="checkbox" onChange={this.onChangeNameOnlyActive}
+                checked={this.props.configuration.changeNameOnlyActive}/>
+                Change name only in {this.props.connection[this.props.ui.activeWsAddress].serverName}
+            </label>
+          ) : null}
         </label>
         <h3>Connections</h3>
         Add new connection:

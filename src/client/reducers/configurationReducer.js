@@ -1,7 +1,8 @@
 'use strict';
 
 const defaultConfiguration = {
-  sendWithEnter: true
+  sendWithEnter: true,
+  changeNameOnlyActive: false
 };
 
 export default function configurationReducer (state = defaultConfiguration, action) {
@@ -9,6 +10,12 @@ export default function configurationReducer (state = defaultConfiguration, acti
   case 'CONFIG_SEND_STYLE':
     return Object.assign({}, state, {
       sendWithEnter: action.payload.sendWithEnter
+    });
+    break;
+
+  case 'CHANGE_NAME_ONLY_ACTIVE':
+    return Object.assign({}, state, {
+      changeNameOnlyActive: action.payload.boolChangeName
     });
     break;
 

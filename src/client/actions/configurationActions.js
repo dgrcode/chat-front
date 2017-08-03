@@ -18,3 +18,12 @@ export function nameChangeAction (name, userId) {
     }
   });
 }
+
+export function changeNameOnlyActive (boolChangeName) {
+  return ({
+    type: 'CHANGE_NAME_ONLY_ACTIVE',
+    payload: {
+      boolChangeName
+    }
+  });
+}
