@@ -25,10 +25,8 @@ export default class MenuView extends React.Component {
         <img id="logo" src="logocat.png"/>
         {
           this.props.wsNames.map((wsInfo, idx) =>
-          (<div className="ws-info" key={idx}>
-            <div
-              className="ws-name"
-              onClick={this.handleClick.bind(this, idx)}>
+          (<div className="ws-info" key={idx} onClick={this.handleClick.bind(this, idx)}>
+            <div className="ws-name">
                 {wsInfo.name}
             </div>
             <em className="ws-address">{wsInfo.address}</em>
